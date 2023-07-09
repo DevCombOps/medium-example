@@ -11,7 +11,7 @@ jobs:
         run: |
           echo "name=ubuntu-latest" >> $GITHUB_OUTPUT
       - name: Set output
-        id: step2
+        id: step1
         run: |
           echo "so=linux" > $GITHUB_OUTPUT
       - name: Show output
