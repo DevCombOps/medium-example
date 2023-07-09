@@ -7,8 +7,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set output
-        id: runner
+        id: step1
         run: |
           echo "name=ubuntu-latest" >> $GITHUB_OUTPUT
+      - name: Set output
+        id: step2
+        run: |
+          echo "so=linux" > $GITHUB_OUTPUT
       - name: Show output
-        run: echo ${{ steps.runner.outputs.name }}
+        run: |
+          echo ${{ steps.step1.outputs.name }}
+          echo ${{ steps.step2.outputs.so }}
