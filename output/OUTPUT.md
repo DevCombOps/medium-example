@@ -14,7 +14,7 @@ A sintaxe para gerar um *output* segue o seguinte padrão:
 
 Um dos exemplos mais simples é o compartilhamento entre *steps* do mesmo job.
 
-https://github.com/DevCombOps/medium-example/blob/b1940ba0957920cff400f62bb0b24e9cf65a74be/.github/workflows/output.yml#L1-L14
+https://github.com/DevCombOps/medium-example/blob/5ca058c058a1dfb29e367c46fef8fca0ea15e1ae/.github/workflows/output.yml#L1-L14
 
 No exemplo acima temos dois *steps*, o primeiro step gera o *output* e o segundo consome. O primeiro step tem o atributo `id` com o valor `runner`, dessa forma qualquer outro step dentro desse job consegue consumir o *output* gerado. Podemos ver o consumo do *output* no segundo step com a seguinte sintaxe:
 
@@ -28,7 +28,7 @@ O resultado do workflow criado será a exibição do runner name.
 
 Para compartilhar output entre jobs é necessário adicionar a propriedade *output* no *job* que irá gerar o valor, contendo a referência do step (conforme descrito acima) e no *job* quer irá receber o valor deverá conter a propriedade *needs* com o nome do job anterior. Para ficar mais claro vamos olhar o seguinte exemplo:
 
-exemplo
+https://github.com/DevCombOps/medium-example/blob/5ca058c058a1dfb29e367c46fef8fca0ea15e1ae/.github/workflows/output.yml#L16-L32
 
 ## *Output* com actions/core
 
