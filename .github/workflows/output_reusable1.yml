@@ -1,7 +1,9 @@
 on:
   workflow_call:
     outputs:
-      valor: ${{ jobs.reusable_workflow_job.outputs.valor }}
+      valor:
+        description: valor obtido do job reusable_workflow_job
+        value: ${{ jobs.reusable_workflow_job.outputs.valor }}
 
 jobs:
   reusable_workflow_job:

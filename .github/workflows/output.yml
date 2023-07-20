@@ -31,6 +31,19 @@ jobs:
         run: |
           echo "Output do job-1: ${{ needs.job-1.outputs.nome-runner}}"
 
+  job-actions-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        id: actions-core
+        with:
+          script: |
+            core.setOutput('resultado', 'core')
+
+      - name: Mostrando actions-core
+        run: |
+          echo "${{ steps.actions-core.outputs.resultado }}"
+
   reusable-1:
     uses: ./.github/workflows/output_reusable1.yml
 

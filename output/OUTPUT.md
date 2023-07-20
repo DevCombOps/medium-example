@@ -16,7 +16,7 @@ Um dos exemplos mais simples é o compartilhamento entre *steps* do mesmo job.
 
 https://github.com/DevCombOps/medium-example/blob/b1940ba0957920cff400f62bb0b24e9cf65a74be/.github/workflows/output.yml#L1-L14
 
-No exemplo acima temos duas *steps*, a primeira step gera o *output* e a segunda consome. A primeira step tem o atributo `id` com o valor `runner`, dessa forma qualquer outra step dentro desse job consegue consumir o *output* gerado. Podemos ver o consumo do *output* na segunda step com a seguinte sintaxe:
+No exemplo acima temos dois *steps*, o primeiro step gera o *output* e o segundo consome. O primeiro step tem o atributo `id` com o valor `runner`, dessa forma qualquer outro step dentro desse job consegue consumir o *output* gerado. Podemos ver o consumo do *output* no segundo step com a seguinte sintaxe:
 
 `${{ steps.<id_da_step_anterior>.outputs.<nome_do_output> }}`
 
@@ -26,7 +26,9 @@ O resultado do workflow criado será a exibição do runner name.
 
 ## *Output* entre *jobs*
 
-## *Output* entre *workflows*
+Para compartilhar output entre jobs é necessário adicionar a propriedade *output* no *job* que irá gerar o valor, contendo a referência do step (conforme descrito acima) e no *job* quer irá receber o valor deverá conter a propriedade *needs* com o nome do job anterior. Para ficar mais claro vamos olhar o seguinte exemplo:
+
+exemplo
 
 ## *Output* com actions/core
 
