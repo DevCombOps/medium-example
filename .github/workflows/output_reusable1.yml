@@ -1,0 +1,15 @@
+on:
+  workflow_call:
+    outputs:
+      valor: ${{ jobs.reusable_workflow_job.outputs.valor }}
+
+jobs:
+  reusable_workflow_job:
+    runs-on: ubuntu-latest
+    outputs:
+      valor: ${{ steps.reusable-1.outputs.valor }}
+    steps:
+      - name: Gera output
+        id: reusable-1
+        run: |
+          echo "valor=meu_reusable_1" >> $GITHUB_OUTPUT

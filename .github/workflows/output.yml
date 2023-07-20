@@ -2,13 +2,40 @@ on:
   push:
 
 jobs:
-  step_outputs:
+  step-outputs:
     runs-on: ubuntu-latest
     steps:
-      - name: Set output
+      - name: Configura nome do runner
         id: runner
         run: |
-          echo "name=ubuntu-latest" >> $GITHUB_OUTPUT
+          echo "nome=ubuntu-latest" >> $GITHUB_OUTPUT
 
-      - name: Show output
+      - name: Mostra output
         run: echo ${{ steps.runner.outputs.name }}
+
+  job-1:
+    runs-on: ubuntu-latest
+    outputs:
+      nome-runner: ${{ steps.runner.outputs.nome }}
+    steps:
+      - name: Configura nome do runner
+        id: runner
+        run: |
+          echo "nome=ubuntu-latest" >> $GITHUB_OUTPUT
+
+  job-2:
+    runs-on: ubuntu-latest
+    needs: job-1
+    steps:
+      - name: Mostra output do job-1
+        run: |
+          echo "Output do job-1: ${{ needs.job-1.outputs.nome-runner}}"
+
+  reusable-1:
+    uses: ./.github/workflows/output_reusable1.yml
+
+  reusable-2:
+    needs: reusable-1
+    uses: ./.github/workflows/output_reusable2.yml
+    with:
+      valor: ${{ needs.reusable-1.outputs.valor }}
