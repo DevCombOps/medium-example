@@ -1,20 +1,14 @@
 on:
   push:
-    branches: feature/output
 
 jobs:
   step_outputs:
     runs-on: ubuntu-latest
     steps:
       - name: Set output
-        id: step1
+        id: runner
         run: |
           echo "name=ubuntu-latest" >> $GITHUB_OUTPUT
-      - name: Set output
-        id: step1
-        run: |
-          echo "so=linux" > $GITHUB_OUTPUT
+
       - name: Show output
-        run: |
-          echo ${{ steps.step1.outputs.name }}
-          echo ${{ steps.step2.outputs.so }}
+        run: echo ${{ steps.runner.outputs.name }}
