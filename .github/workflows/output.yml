@@ -44,6 +44,47 @@ jobs:
         run: |
           echo "${{ steps.actions-core.outputs.resultado }}"
 
+  job-output-overwrite:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Sobrescrevendo output
+        id: runner
+        run: |
+          echo "name=ubuntu-latest" >> $GITHUB_OUTPUT
+          echo "so=linux" > $GITHUB_OUTPUT
+      - name: mostrando output
+        run: |
+          echo ${{ steps.runner.outputs.name }}
+          echo ${{ steps.runner.outputs.so }}
+
+  job-1-secret:
+    runs-on: ubuntu-latest
+    outputs:
+      valor: ${{ steps.step-1.outputs.valor }}
+    steps:
+      - name: Configura secret como output
+        id: step-1
+        run: |
+          export SECRET="minha-secret"
+          echo "valor=$SECRET" >> $GITHUB_OUTPUT
+
+  job-2-secret:
+    runs-on: ubuntu-latest
+    needs: job-1-secret
+    steps:
+      - name: Mostra output do job-1-secret
+        run: |
+          echo "Output contendo secret: ${{ needs.job-1-secret.outputs.valor}}"
+
+  # job-deprecated-output:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Output deprecated
+  #       id: runner
+  #       run: echo "::set-output name=name::ubuntu-latest"
+  #     - name: Mostra output
+  #       run: echo ${{ steps.runner.outputs.name }}
+
   reusable-1:
     uses: ./.github/workflows/output_reusable1.yml
 
