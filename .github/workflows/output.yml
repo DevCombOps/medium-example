@@ -76,14 +76,14 @@ jobs:
         run: |
           echo "Output contendo secret: ${{ needs.job-1-secret.outputs.valor}}"
 
-  # job-deprecated-output:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Output deprecated
-  #       id: runner
-  #       run: echo "::set-output name=name::ubuntu-latest"
-  #     - name: Mostra output
-  #       run: echo ${{ steps.runner.outputs.name }}
+  job-deprecated-output:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output deprecated
+        id: runner
+        run: echo "::set-output name=name::ubuntu-latest"
+      - name: Mostra output
+        run: echo ${{ steps.runner.outputs.name }}
 
   reusable-1:
     uses: ./.github/workflows/output_reusable1.yml
