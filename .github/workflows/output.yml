@@ -65,8 +65,7 @@ jobs:
       - name: Configura secret como output
         id: step-1
         run: |
-          export SECRET="minha-secret"
-          echo "valor=$SECRET" >> $GITHUB_OUTPUT
+          echo "valor=${{ secrets.SECRET_OUTPUT }}" >> $GITHUB_OUTPUT
 
   job-2-secret:
     runs-on: ubuntu-latest
