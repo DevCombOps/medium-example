@@ -1,0 +1,37 @@
+on:
+  push:
+  
+env:
+  # Variável definida no escopo do workflow. Poderá ser acessada por todos seus jobs.
+  env_var: "Variavel de workflow"
+
+jobs:
+  display-variables:
+    name: variaveis
+    runs-on: ubuntu-latest
+    env: 
+        job_var: "Variavel de job"
+    steps:
+    - name: Printando variavel do escopo de workflow
+      run: |
+        echo "Printando variavel do escopo de workflow : $env_var"
+        echo "Printando variavel do escopo de workflow : $job_var"      
+    - name: Printando variavel definida no escopo deste step
+      id: step-variable
+      env: 
+        step_var: "Variavel de step"
+      run: |
+        echo "Printando variavel do escopo de workflow : $step_var"
+        
+    - name: Printando variavel do escopo de step, definido no step anterior
+      run: |
+        echo "Printando variavel do escopo de workflow : $step_var"
+    
+    - name: Manipulando valor da variavel definida em nível de workflow
+      run: |
+        echo "Printando variavel do escopo de workflow : $env_var"
+        export env_var="Redefinindo variavel de workflow"
+        echo "env_var=$env_var" >> $GITHUB_ENV
+    - name: Printando variavel do escopo de workflow
+      run: |
+        echo "Printando variavel do escopo de workflow : $env_var"
