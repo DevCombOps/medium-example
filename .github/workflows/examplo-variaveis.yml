@@ -33,7 +33,6 @@ jobs:
             console.log(process.env.GITHUB_REPOSITORY)    
             
   utilizando-variaveis-customizadas:
-    name: Teste de workflow -2 
     runs-on: ubuntu-latest
     steps: 
       - name: Exportando variavel
