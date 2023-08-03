@@ -18,15 +18,8 @@ Nativamente, o **Github Actions** já disponibiliza algumas variáveis de ambien
 
 | Variável | Descrição |  
 |----------|-----------|
-|  GITHUB_ACTOR        |           |
-|  GITHUB_BASE_REF        |           |
-|  GITHUB_EVENT_NAME        |           |
-|  GITHUB_REF        |           |
-|  GITHUB_REF_NAME        |           |
-|  GITHUB_EVENT_NAME        |           |
-|  GITHUB_EVENT_NAME        |           |
-|  GITHUB_EVENT_NAME        |           |
-|  GITHUB_EVENT_NAME        |           |
+|  GITHUB_ACTOR        |   Nome do usuário que realizou o commit      |
+|  GITHUB_EVENT_NAME        |  Nome do evento que disparou o workflow         |
 
 A lista de todas variáveis disponíveis está [aqui](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables).
 
