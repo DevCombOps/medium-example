@@ -14,25 +14,27 @@ Vamos começar falando das variáveis de ambiente.
 
 ### Variáveis padrão
 
-Nativamente, o **Github Actions** já disponibiliza algumas variáveis de ambientes padrão. Dentre essas variávieis, podemos destacar algumas como:
+Nativamente, o **Github Actions** já disponibiliza algumas variáveis de ambientes padrão. Dentre essas variávieis, existem algumas bem interessante e que podem ser bem úteis no dia-a-dia. São elas:
 
 | Variável | Descrição |  
 |----------|-----------|
 |  GITHUB_ACTOR        |   Nome do usuário que realizou o commit      |
 |  GITHUB_EVENT_NAME        |  Nome do evento que disparou o workflow         |
+|  GITHUB_REPOSITORY        |  Nome do repositório em que está rodando o workflow         |
+|  GITHUB_SHA        |  O sha do commit que disparou o workflow         |
 
 A lista de todas variáveis disponíveis está [aqui](https://docs.github.com/en/actions/learn-github-actions/variables#default-environment-variables).
 
-Para acessá-las dentro do seu *workflow*, utilize os comandos para acessar as variáveis de ambiente do sistema operacional que seu job está rodando.
+Para acessá-las dentro do seu *workflow*, utilize os comandos para acessar as variáveis de ambiente do sistema operacional/linguagem de programação que seu job está rodando.
 
-Exemplos
+Exemplos para acessar em linux, windows e através de javascript:
+https://github.com/DevCombOps/medium-example/blob/8e94ef5fd90cd2be8a1f1094abd83f7fd9875de5/.github/workflows/example.yml#L5-L33
 
-https://github.com/DevCombOps/medium-example/blob/feature/environments/.github/workflows/example.yml#L1-L33
 ### Variáveis customizadas
 
 Além das variáveis mecionandas acima, também é possível criar novas variáveis para utilizar em nosso fluxo.
 
-Um dos principais caso de uso quando falamos das variáveis de ambiente customizadas, é quando precisamos salvar um determinado valor em um step, sendo que precisaremos consultar este mesmo valor em um passo posterior do nosso fluxo.
+Um dos principais caso de uso quando falamos das variáveis de ambiente customizada, é quando precisamos salvar um determinado valor em um step e usar este mesmo valor em um passo posterior do nosso fluxo.
 
 <!-- precisamos compartilhar uma informação com outros steps dentro de um mesmo workflow, temos duas opções: definir variáveis de output (link pro rafão) ou definir variáveis de ambiente. -->
 <!--
@@ -47,34 +49,32 @@ No exemplo abaixo, temos:
   - a variável job_var, sendo declarada no nível do job display-variables, sendo acessível apenas pelos steps deste job;
   - a variável step_var, sendo declarada no nível do step step-variable, logo, acessível apenas por este step
 
-https://github.com/guilhermercandido/repo_testes/blob/2f968202da1f0f1f5ebb9f711ef41f157a37f8f3/.github/workflows/2-variables.yml#L1-L28
+https://github.com/DevCombOps/medium-example/blob/c13d03ecd679f978b0be7a96d23dec68395e8fa7/.github/workflows/exemplo-escopo-variaveis.yml#L1-L37
 
 Como resultado do código acima, temos o seguinte resultado:
+
 ![img_003](https://github.com/guilhermercandido/repo_testes/assets/26474513/668c547a-ddc2-46ea-940b-f36d143d3740)
 
-Um ponto interessante é que o GITHUB permite uma fácil visualização das variáveis de ambiente customizadas. Basta expandir a primeira linha do nosso step que teremos uma propriedade chamada **env**. Ela conterá todas as variáveis que podem ser acessadas por aquele step e o seu valor, facilitando o troubleshooting.
+O GitHub Actions permite uma fácil visualização das variáveis de ambiente customizadas: basta expandir a primeira linha do nosso step que teremos uma propriedade chamada **env**. Ela conterá todas as variáveis que podem ser acessadas por aquele step e o seu valor, facilitando eventuais troubleshooting.
 
-Porém, muitas vezes, precisamos que esse valor seja alterado ou definido em tempo de execução do workflow. 
-Uma vez iniciado o workflow, o Github utiliza um arquivo de sistema para gerenciamento das variáveis de ambiente disponíveis para cara job. Este arquivo é chamdo GITHUB_ENV.
+Além das variáveis definidas em cada escopo, também é possível declarar variáveis dentro da seção ***run*** de algum determinado step.
+Uma vez iniciado o workflow, o Github utiliza um arquivo de sistema para gerenciamento das variáveis de ambiente disponíveis para cada job. Este arquivo é chamdo ***GITHUB_ENV***.
 <!-- Para isso, precisamos definir a variável de ambiente e escrevê-la no arquivo GITHUB_ENV. Este arquivo é utilizado pelo fluxo para definição de todas as variávies de ambiente customizadas. -->
 
-Para exemplificação, vamos fazer um paralelo ao método de definição de variáveis de ambiente para sistemas operacionais unix.
+Exemplo para exportar variavel rodando em linux:
 
-Neste tipo de SO, para exportar uma varíavel de ambiente, utilizamos o comando *export*. Fazendo este mesmo comando em um step no Github Actions, temos o seguinte resultado:
-
-https://github.com/guilhermercandido/repo_testes/blob/16d4961aef2c5307b081963dabd0b7f4070873d5/.github/workflows/1-teste.yml#L6-L19
+https://github.com/DevCombOps/medium-example/blob/b10ad159713af869f00b64a815c291ac0cdbe649/.github/workflows/examplo-variaveis.yml#L35-L53
 
 Execução do código acima:
 
-![img_001](https://github.com/guilhermercandido/repo_testes/assets/26474513/cfa43fa6-612d-442b-918b-f2fbc0fc6c31)
+![img_001](https://github.com/guilhermercandido/repo_testes/assets/26474513/cfa43fa6-612d-442b-918b-f2fbc0fc6c31).
 
-Neste caso, mesmo definindo a variável de ambiente *$teste*, repare que a linha 6 do step **Acessando variaveis de ambiente** está com o valor em branco. Isso deve-se ao fato que, embora a variavel tenha sido definida, ela não foi escrita no arquivo GITHUB_ENV.
+Repare que, no segundo step, temos destacado uma seção chamada **env**. Ela nos indicará quais variáveis de ambiente customizadas estarão disponíveis para o step consultar. 
 
-Se quisermos utilizar essa variável definida no step **Exportando variavel** em um outro job, precisamos exportá-la também para GITHUB_ENV. 
+Exemplo para exportar variavel rodando algum código javascript:
 
-https://github.com/guilhermercandido/repo_testes/blob/e8e594313e30504f3eb58e5c2cb46f49dfaf3b0b/.github/workflows/1-teste.yml#L21-L42
+https://github.com/DevCombOps/medium-example/blob/b10ad159713af869f00b64a815c291ac0cdbe649/.github/workflows/examplo-variaveis.yml#L54-L64
 
-![img_002](https://github.com/guilhermercandido/repo_testes/assets/26474513/e4ae5191-5a5c-4666-8d5d-f80fc7107674)
-
-No exemplo acima, temos um fato importante: repare que, no segundo step, temos destacado uma seção chamada **env**. Ela nos indicará quais variáveis de ambiente customizadas estarão disponíveis para o step consultar. Enquanto no primeiro step não temos a mesma seção e o comando para exibir ${{ env.teste }}, retornou branco.
+Execução do código acima:
+![image](https://github.com/DevCombOps/medium-example/assets/26474513/206df647-c677-4154-9269-45bc8545044b)
 
