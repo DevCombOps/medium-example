@@ -1,0 +1,56 @@
+name: Workflow de exemplo
+
+on: push
+
+jobs:
+  teste-padrao:
+    name: Variaveis padrão
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Utilizando variaveis padrao
+        run: |
+          echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato org/repo-name"
+          echo $GITHUB_REPOSITORY
+          
+          echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato repo-name"
+          echo ${GITHUB_REPOSITORY##*/}
+        
+  teste:
+    name: Teste de workflow
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Exportando variavel
+        run: |
+          echo "Definindo uma variável de ambiente no nível do sistema operacional"
+          export teste=teste
+          echo $teste
+ 
+      - name: Acessando variaveis de ambiente
+        run: |
+           echo 'Consultando a variavel exportada com o comando: echo $teste'
+           echo $teste
+      
+  teste-1:
+    name: Teste de workflow -2 
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Exportando variavel
+        run: |
+          
+          echo "Definindo uma variável de ambiente no nível do sistema operacional"
+          export teste=teste
+          echo $teste
+          
+          echo "Exportando essa variável para ser utilizada em outros steps deste mesmo job"
+          echo "teste=$teste" > $GITHUB_ENV
+          
+          echo "Consultando a variavel exportada no mesmo job com \$\{\{ env.teste \}\}"
+          echo ${{ env.teste }}
+          env
+      - name: Acessando variaveis de ambiente
+        run: |
+           env
+           echo 'Consultando a variavel exportada com o comando: echo $teste'
+           echo $teste
+           echo "Consultando a variavel exportada no mesmo job com \$\{\{ env.teste \}\}"
+           echo ${{ env.teste }}
