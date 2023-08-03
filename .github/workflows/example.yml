@@ -24,7 +24,13 @@ jobs:
           echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato org/repo-name"
           echo $Env:GITHUB_REPOSITORY
 
-            
+  consultando-variaveis-actions-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(process.env.GITHUB_REPOSITORY)       
   teste:
     name: Teste de workflow
     runs-on: ubuntu-latest
