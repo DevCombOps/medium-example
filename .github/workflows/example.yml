@@ -3,18 +3,18 @@ name: Workflow de exemplo
 on: push
 
 jobs:
-  teste-padrao:
-    name: Variaveis padrão
+  consultando-variaveis:
+    name: Acessando e manipulando variáveis de ambiente - Linux
     runs-on: ubuntu-latest
     steps: 
-      - name: Utilizando variaveis padrao
+      - name: Acessando variável de ambiente
         run: |
           echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato org/repo-name"
           echo $GITHUB_REPOSITORY
-          
+
           echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato repo-name"
           echo ${GITHUB_REPOSITORY##*/}
-        
+            
   teste:
     name: Teste de workflow
     runs-on: ubuntu-latest
