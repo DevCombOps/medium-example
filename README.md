@@ -25,12 +25,9 @@ A lista de todas variáveis disponíveis está [aqui](https://docs.github.com/en
 
 Para acessá-las dentro do seu *workflow*, utilize os comandos para acessar as variáveis de ambiente do sistema operacional que seu job está rodando.
 
-Exemplo em unix:
-https://github.com/guilhermercandido/repo_testes/blob/3fecdcbbf4243a98a60bd108b831847c69d445a0/.github/workflows/1-teste.yml#L6-L16
+Exemplos
 
-Exemplo em windows:
-https://github.com/guilhermercandido/repo_testes/blob/3fecdcbbf4243a98a60bd108b831847c69d445a0/.github/workflows/1-teste.yml#L6-L16
-
+https://github.com/DevCombOps/medium-example/blob/feature/environments/.github/workflows/example.yml#L1-L33
 ### Variáveis customizadas
 
 Além das variáveis mecionandas acima, também é possível criar novas variáveis para utilizar em nosso fluxo.
