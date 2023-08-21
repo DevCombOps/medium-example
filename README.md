@@ -8,7 +8,7 @@ Dentro deste contexto, temos dois tipos de variáveis:
 - Variáveis de ambiente, que podem ser utilizadas no contexto de um único *workflow* (compartilhando informações entre steps).
 - Variáveis de configuração, que podem ser definidas a nível de organização, repositório ou ambiente. Elas podem ser compartilhadas no contexto em que foram criadas e compartilhando a informação em todos *workflows* que tem acesso à ela.
 
-Vamos começar falando das variáveis de ambiente.
+Este material abordará as variáveis de ambiente. As variáveis de configuração serão abordadas em um próximo artigo.
 
 ## Variáveis de ambiente
 
