@@ -40,13 +40,13 @@ https://github.com/DevCombOps/medium-example/blob/0a22cdd70b304a8a4d62fadfa46381
 
 ### Sobrescrever variável GITHUB_OUTPUT
 
-Um erro comum que devemos ficar atento é a sobrescrita da variável `GITHUB_OUTPUT` dentro do mesmo step. Caso isso aconteça, somente a última variável será salva.
+Um erro comum que devemos ficar atento é a sobrescrita da variável `GITHUB_OUTPUT` dentro do mesmo step. Caso isso aconteça, todos os outputs salvos anteriormente serão perdidos.
 
 https://github.com/DevCombOps/medium-example/blob/0a22cdd70b304a8a4d62fadfa46381b9c65f3218/.github/workflows/output.yml#L47-L58
 
 ![resultado do workflow](imgs/output2.png)
 
-Isso acontece pois a variável `GITHUB_OUTPUT` possui um arquivo como referência. Assim como temos o arquivo `/etc/environment` o arquivo do `GITHUB_OUTPUT é carregado a toda nova step após ser configurado.
+Isso acontece pois a variável `GITHUB_OUTPUT` possui um arquivo como referência. Assim como temos o arquivo `/etc/environment` o arquivo do `GITHUB_OUTPUT` é carregado a toda nova step.
 
 ### Compartilhar secrets
 
