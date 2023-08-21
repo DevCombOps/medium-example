@@ -6,7 +6,7 @@ env:
   env_var: "Variavel de workflow"
 
 jobs:
-  display-variables:
+  consume-variaveis:
     name: variaveis
     runs-on: ubuntu-latest
     env: 
