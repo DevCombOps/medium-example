@@ -1,0 +1,65 @@
+name: Workflow de exemplo
+
+on: push
+
+jobs:
+  consultando-variaveis-linux:
+    name: Acessando e manipulando variáveis de ambiente - Linux
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Acessando variável de ambiente
+        run: |
+          echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato org/repo-name"
+          echo $GITHUB_REPOSITORY
+
+          echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato repo-name"
+          echo ${GITHUB_REPOSITORY##*/}
+
+  consultando-variaveis-windows:
+    name: Acessando e manipulando variáveis de ambiente - Windows
+    runs-on: windows-latest
+    steps: 
+      - name: Acessando variável de ambiente
+        run: |
+          echo "Consultando o nome do repositório em que o workflow está sendo executado, no formato org/repo-name"
+          echo $Env:GITHUB_REPOSITORY
+
+  consultando-variaveis-actions-core:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            console.log(process.env.GITHUB_REPOSITORY)    
+            
+  utilizando-variaveis-customizadas:
+    runs-on: ubuntu-latest
+    steps: 
+      - name: Exportando variavel
+        run: |
+          echo "Definindo uma variável de ambiente no nível do sistema operacional"
+          export teste=teste
+          echo $teste
+          
+          echo "Exportando essa variável para ser utilizada em outros steps deste mesmo job"
+          echo "teste=$teste" >> $GITHUB_ENV
+          
+      - name: Acessando variaveis de ambiente
+        run: |
+           echo 'Consultando a variavel exportada com o comando: echo $teste'
+           echo $teste
+           echo "Consultando a variavel exportada no mesmo job com \$\{\{ env.teste \}\}"
+           echo ${{ env.teste }}
+           
+      - uses: actions/github-script@v6
+        with:
+          script: |
+            core.exportVariable('coreVariable', 'Variavel exportada através da bibloteca @actions/core');
+
+      - name: Acessando variaveis de ambiente
+        run: |
+           echo 'Consultando a variavel exportada com o comando: echo $teste'
+           echo $teste
+           echo 'Consultando a variavel exportada com o comando: echo $coreVariable'
+           echo $coreVariable
+          
